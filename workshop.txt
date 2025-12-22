@@ -1,0 +1,33 @@
+version=1
+id=3628843367
+title=PhunCure
+description=A B42 single and multiplayer mod that allows zeds to drop a cure for the infection. Totally inspired by the awesome TheyKnew
+description=
+description=[H2]Highlights[/H2]
+description=[list]
+description=[*]Designed for Multiplayer, but works in single player too
+description=[*]Configure the drop rate
+description=[*]The cure goes off after a few days. Keep cold or in the fridge to keep longer
+description=[*]Optionally integrates very well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233]PhunSprinters[/url] which will give you different drop rates for sprinters vs normal zeds
+description=[*]Optionally integrates very well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450]PhunZones[/url] which will give you zone specific settings for drop rates (eg higher drop rates in Louisville)
+description=[/list]
+description=
+description=Global Settings
+description=[table]
+description=[tr][th]Setting[/th][th]Description[/th][/tr]
+description=[tr][td][b]Default Drop Rate[/b][/td][td]The chance out of 10,000 of a cure carrying zed appearing. eg 100 = 1%, 5000 = 50%[/td][/tr]
+description=[tr][td][b]Default Sprinter Drop Rate[/b][/td][td]The chance out of 10,000 that the sprinter is packing a cure. eg 100 = 1%, 5000 = 50%[/td][/tr]
+description=[tr][td][b]Debug[/b][/td][td]Threshold for global ambient light before sprinting is triggered. The higher this value, the lighter it can be to make sprinters run[/td][/tr]
+description=[tr][td][b]Min Distance[/b][/td][td]The minimum distance of player to zed must be to process the chance of carrier (this is to prevent sudden popins)[/td][/tr]
+description=[tr][td][b]Max Distance[/b][/td][td]The maximum distance of player to zed must be to process the chance of being a carrier (this is to improve performance trying to process zeds that are too far away)[/td][/tr]
+description=[tr][td][b]Queue Size[/b][/td][td]The max number of zeds to update per tick[/td][/tr]
+description=[/table]
+description=
+description=For individual zone settings in PhunZones, just edit the zone (I suggest the default zone to start with) and set your specific Drop rates there. If those are empty, the system uses the values found in your Sandbox Options
+description=
+description=[H2]More Phun Stuff[/h2]
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233][img]https://i.ibb.co/k6cQ4h7d/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450][img]https://i.ibb.co/x8H5KRhs/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3606988132][img]https://i.ibb.co/ZtQtmJd/preview.png[/img][/url]
+description=
+description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunSprinters]GitHub repo and more info[/url]
+tags=Build 41;Build 42;Items;Multiplayer
+visibility=public

@@ -1,0 +1,23 @@
+
+Sandbox_EN = {
+    Sandbox_PhunCure = "PhunCure"
+    Sandbox_PhunCure_Debug = "Debug",
+    Sandbox_PhunCure_Debug_tooltip = "Get verbose on it",
+    Sandbox_PhunCure_DefaultDropRate = "Default Drop Rate",
+    Sandbox_PhunCure_DefaultDropRate_tooltip = "The chance out of 10,000 of a cure carrying zed appearing. eg 100 = 1%, 5000 = 50%",
+    Sandbox_PhunCure_DefaultSprinterDropRate = "Default Sprinter Drop Rate",
+    Sandbox_PhunCure_DefaultSprinterDropRate_tooltip = "The chance out of 10,000 that the sprinter is packing a cure. eg 100 = 1%, 5000 = 50%",
+    
+    Sandbox_PhunCure_MinDistance = "Min Distance"
+    Sandbox_PhunCure_MinDistance_tooltip = "The minimum distance of player to zed must be to process the chance of carrier (this is to prevent sudden popins)"
+
+    Sandbox_PhunCure_MaxDistance = "Max Distance"
+    Sandbox_PhunCure_MaxDistance_tooltip = "The maximum distance of player to zed must be to process the chance of being a carrier (this is to improve performance trying to process zeds that are too far away)"
+
+    Sandbox_PhunCure_MaxQueue = "Queue Size"
+    Sandbox_PhunCure_MaxQueue_tooltip = "The max number of zeds to update per tick"
+
+    Sandbox_PhunCure_DressUp = "Apply Outfit"
+    Sandbox_PhunCure_DressUp_tooltip = "If yes, will apply the Hazmat outfit to zeds carrying the cure"    
+}
+

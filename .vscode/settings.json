@@ -1,0 +1,71 @@
+{
+    "emeraldwalk.runonsave": {
+        "autoClearConsole": true,
+        "commands": [
+            // del dest
+            {
+                "match": ".*",
+                "cmd": "rmdir /S /Q ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure 2>nul"
+            },
+            // copy src to dest
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods ${env.USERPROFILE}\\Zomboid\\mods /Y /I /E /F /EXCLUDE:xclude"
+            },
+            // copy src/media/* from dest to dest/42.0.0
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods\\PhunCure\\media ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure\\42.0.0\\media /Y /I /E /F"
+            },
+            // copy src/common to dest/common
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods\\PhunCure\\common ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure\\common /Y /I /E /F"
+            },
+            // copy src/mod.info to dest/42.0.0/mod.info
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunCure\\42.0.0\\mod.info ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure\\42.0.0\\mod.info /Y"
+            },
+            // copy src/poster to dest/42.0.0/poster
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunCure\\poster.png ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure\\42.0.0\\poster.png /Y"
+            },
+            // copy src/icon to dest/42.0.0/icon
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunCure\\icon.png ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure\\42.0.0\\icon.png /Y"
+            },
+            // remove workshop/*
+            {
+                "match": ".*",
+                "cmd": "rmdir /S /Q ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunCure 2>nul"
+            },
+            // copy src to workshop
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder} ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunCure /Y /I /E /F /EXCLUDE:xclude"
+            },
+            // copy dest to workshop
+            {
+                "match": ".*",
+                "cmd": "xcopy ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunCure\\Contents\\mods\\PhunCure /Y /I /E /F"
+            },
+            // del pz41
+            {
+                "match": ".*",
+                "cmd": "rmdir /S /Q ${env.USERPROFILE}\\pz41\\mods\\PhunCure 2>nul"
+            },
+            // copy dest to pz41
+            {
+                "match": ".*",
+                "cmd": "xcopy ${env.USERPROFILE}\\Zomboid\\mods\\PhunCure ${env.USERPROFILE}\\pz41\\mods\\PhunCure /Y /I /E /F /EXCLUDE:xclude"
+            },
+
+        ]
+    },
+    "editor.formatOnSave": true,
+    "github.gitAuthentication": true,
+    "github.gitProtocol": "ssh"
+}

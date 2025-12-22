@@ -1,0 +1,7 @@
+name=PhunCure TEST
+id=phuncuretest
+author=UburGeek
+description=A special item drop that players can use to remove the virus from themselves
+poster=poster.png
+require=phunlib
+icon=icon.png
