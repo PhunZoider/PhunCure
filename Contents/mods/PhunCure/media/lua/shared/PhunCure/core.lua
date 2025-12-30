@@ -5,7 +5,8 @@ PhunCure = {
     commands = {
         playerSetup = "playerSetup",
         notify = "notify",
-        hazmatZed = "hazmatZed"
+        hazmatZed = "hazmatZed",
+        cure = "cure"
     },
     events = {
         onReady = "PhunCureOnReady"
@@ -72,7 +73,44 @@ function Core.getZId(zed)
     end
 end
 
+Core.cure = function(food, player, percent)
+    if not isServer() then
+        getSoundManager():PlaySound("InjectCure", false, 0):setVolume(0.50);
+        if not food:isRotten() then
+            sendClientCommand(player, Core.name, Core.commands.cure, {})
+        else
+            player:Say(getText("IGUI_ItemRottenAmpule"));
+            PL.addLineInChat(getText("IGUI_ItemSuccessAmpule_NoSuccess"), "<RGB:255,255,0>");
+        end
+    else
+        Core.debugLn("Cure command received for player " .. tostring(player:getUsername()))
+    end
+
+end
+
+function Core.applyFreshAndRottenDays()
+    local item = ScriptManager.instance:getItem("PhunCure.Cure")
+    local daysRotten = Core.getOption("DaysRotten", 5)
+    local daysFresh = Core.getOption("DaysFresh", 1)
+
+    if daysRotten <= 0 then
+        daysRotten = 1000000000
+    end
+    item:DoParam("DaysTotallyRotten = " .. daysRotten)
+    item:DoParam("DaysFresh = " .. daysFresh)
+    Core.debugLn("Updated Cure item rotten days to " .. tostring(daysRotten) .. " and fresh days to " ..
+                     tostring(daysFresh))
+end
+
 Events.EveryTenMinutes.Add(function()
     -- refresh periodically so we aren't constantly reading from function
     Core.settings.Debug = Core.getOption("Debug", false)
+end)
+
+Events.OnGameStart.Add(function()
+    Core.applyFreshAndRottenDays()
+end)
+
+Events.OnServerStarted.Add(function()
+    Core.applyFreshAndRottenDays()
 end)

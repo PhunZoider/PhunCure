@@ -20,6 +20,59 @@ option PhunCure.DefaultSprinterDropRate
     translation = PhunCure_DefaultSprinterDropRate,
 }
 
+option PhunCure.DaysRotten
+{
+    type = integer,
+    default = 4,
+    min = 0,
+    max = 10000,
+    page = PhunCure,
+    translation = PhunCure_DaysRotten,
+}
+
+option PhunCure.DaysFresh
+{
+    type = integer,
+    default = 1,
+    min = 0,
+    max = 10000,
+    page = PhunCure,
+    translation = PhunCure_DaysFresh,
+}
+
+option PhunCure.CureInfection
+{
+    type = boolean,
+    default = true,
+    page = PhunCure,
+    translation = PhunCure_CureInfection,
+}
+
+option PhunCure.CureWound
+{
+    type = boolean,
+    default = true,
+    page = PhunCure,
+    translation = PhunCure_CureWound,
+}
+
+option PhunCure.CureBite
+{
+    type = boolean,
+    default = true,
+    page = PhunCure,
+    translation = PhunCure_CureBite,
+}
+
+option PhunCure.CureScratch
+{
+    type = boolean,
+    default = true,
+    page = PhunCure,
+    translation = PhunCure_CureScratch,
+}
+
+
 option PhunCure.Debug
 {
     type = boolean,

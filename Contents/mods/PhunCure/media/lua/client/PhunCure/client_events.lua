@@ -46,3 +46,11 @@ Events.EveryTenMinutes.Add(function()
     Core.settings.MinDistance = Core.getOption("MinDistance", 400)
     Core.settings.MaxDistance = Core.getOption("MaxDistance", 3000)
 end)
+
+Events.OnServerCommand.Add(function(module, command, arguments)
+    if module == Core.name then
+        if Commands[command] then
+            Commands[command](arguments)
+        end
+    end
+end)

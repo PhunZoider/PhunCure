@@ -1,6 +1,6 @@
 module Base
 {
-	sound BreakAmpule
+	sound InjectCure
     {
         category = Object,
         clip
@@ -10,4 +10,3 @@ module Base
         }
     }
 }
-

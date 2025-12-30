@@ -24,7 +24,7 @@ module PhunCure
 		Medical 			= TRUE,
 		CustomContextMenu   = Inject_Cure,
 		EatType				= popcan,
-		OnEat 				= PhunCure.onEat,
+		OnEat 				= PhunCure.cure,
 		CustomEatSound 		= InjectCure,
         WorldStaticModel	= Tweezers, 
     }

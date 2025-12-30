@@ -17,6 +17,12 @@ description=[table]
 description=[tr][th]Setting[/th][th]Description[/th][/tr]
 description=[tr][td][b]Default Drop Rate[/b][/td][td]The chance out of 10,000 of a cure carrying zed appearing. eg 100 = 1%, 5000 = 50%[/td][/tr]
 description=[tr][td][b]Default Sprinter Drop Rate[/b][/td][td]The chance out of 10,000 that the sprinter is packing a cure. eg 100 = 1%, 5000 = 50%[/td][/tr]
+description=[tr][td][b]Days to Rot[/b][/td][td]Number of days the cure is good for without keeping in fridge or freezer. Set to 0 or a crazy high number to disable (default is 4 days). Note this value only applies after a restart and only to newly created items[/td][/tr]
+description=[tr][td][b]Days Fresh[/b][/td][td]Number of days that the cure is considered fresh. Currently has no benefit. Default is 1 day. Note that changing this value only applies after a restart and to newly created items[/td][/tr]
+description=[tr][td][b]Cure Virus[/b][/td][td]Injecting a valid cure will remove the knox virus[/td][/tr]
+description=[tr][td][b]Heal Wound[/b][/td][td]Injecting a valid cure will heal any infected wound (eg instead of using anti biotics). This is different to the knox virus[/td][/tr]
+description=[tr][td][b]Heal Bite[/b][/td][td]Injecting a valid cure will heal body part bite[/td][/tr]
+description=[tr][td][b]Heal Scratch[/b][/td][td]Injecting a valid cure will heal any scratch[/td][/tr]
 description=[tr][td][b]Debug[/b][/td][td]Threshold for global ambient light before sprinting is triggered. The higher this value, the lighter it can be to make sprinters run[/td][/tr]
 description=[tr][td][b]Min Distance[/b][/td][td]The minimum distance of player to zed must be to process the chance of carrier (this is to prevent sudden popins)[/td][/tr]
 description=[tr][td][b]Max Distance[/b][/td][td]The maximum distance of player to zed must be to process the chance of being a carrier (this is to improve performance trying to process zeds that are too far away)[/td][/tr]
@@ -28,6 +34,6 @@ description=
 description=[H2]More Phun Stuff[/h2]
 description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233][img]https://i.ibb.co/k6cQ4h7d/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450][img]https://i.ibb.co/x8H5KRhs/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3606988132][img]https://i.ibb.co/ZtQtmJd/preview.png[/img][/url]
 description=
-description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunCures]GitHub repo and more info[/url]
+description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunCure]GitHub repo and more info[/url]
 tags=Build 41;Build 42;Items;Multiplayer
 visibility=public

@@ -8,4 +8,7 @@ IGUI_EN = {
 	IGUI_ItemSuccessAmpule_2 = "That has cleared my head"
 	IGUI_ItemSuccessAmpule_3 = "Whew!"
 	IGUI_ItemSuccessAmpule_4 = "Smells like... teen spirit?"  
+	IGUI_ItemSuccessAmpule_Success = "You injected yourself and are feeling better"
+	IGUI_ItemSuccessAmpule_NoSuccess = "You injected yourself but don't feel any better"
+
 }
