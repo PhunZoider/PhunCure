@@ -8,6 +8,9 @@ Sandbox_EN = {
     Sandbox_PhunCure_DefaultSprinterDropRate = "Default Sprinter Drop Rate",
     Sandbox_PhunCure_DefaultSprinterDropRate_tooltip = "The chance out of 10,000 that the sprinter is packing a cure. eg 100 = 1%, 5000 = 50%",
 
+    Sandbox_PhunCure_ExpiredChance = "Expired Cure Chance"
+    Sandbox_PhunCure_ExpiredChance_tooltip = "The chance (out of 100) that the cure will allready be rotten which can further increase rarity. Note that if you disabled rotting below (eg Days to Rot = 0) then this value will have no affect. 0 means they will always be fresh, 50 means that half of the cures found will be unusuable"
+
     Sandbox_PhunCure_DaysRotten = "Days to Rot"
     Sandbox_PhunCure_DaysRotten_tooltip = "Number of days the cure is good for without keeping in fridge or freezer. Set to 0 or a crazy high number to disable (default is 4 days). Note this value only applies after a restart and only to newly created items"
 
@@ -37,5 +40,7 @@ Sandbox_EN = {
 
     Sandbox_PhunCure_DressUp = "Apply Outfit"
     Sandbox_PhunCure_DressUp_tooltip = "If yes, will apply the Hazmat outfit to zeds carrying the cure"    
+
+
 }
 

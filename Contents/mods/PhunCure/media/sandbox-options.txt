@@ -20,6 +20,16 @@ option PhunCure.DefaultSprinterDropRate
     translation = PhunCure_DefaultSprinterDropRate,
 }
 
+option PhunCure.ExpiredChance
+{
+    type = integer,
+    default = 0,
+    min = 0,
+    max = 100,
+    page = PhunCure,
+    translation = PhunCure_ExpiredChance,
+}
+
 option PhunCure.DaysRotten
 {
     type = integer,
