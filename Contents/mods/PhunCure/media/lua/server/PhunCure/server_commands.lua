@@ -7,16 +7,23 @@ local Commands = {}
 
 Commands[Core.commands.hazmatZed] = function(playerObj, arguments)
 
-    if Core.pendingUpdates == nil then
-        Core.pendingUpdates = {}
-        Core.pendingUpdatesCount = 0
+    for zedId, status in pairs(arguments) do
+        Core.addToSend(zedId, status)
+        if status then
+            Core.dressQueue[zedId] = true
+        end
     end
 
-    Core.pendingUpdates[arguments.zombieId] = "hazmat"
-    Core.pendingUpdatesCount = Core.pendingUpdatesCount + 1
-    sendServerCommand(Core.name, Core.commands.hazmatZed, {
-        zombieId = arguments.zombieId
-    })
+    -- if Core.pendingUpdates == nil then
+    --     Core.pendingUpdates = {}
+    --     Core.pendingUpdatesCount = 0
+    -- end
+
+    -- Core.pendingUpdates[arguments.zombieId] = "hazmat"
+    -- Core.pendingUpdatesCount = Core.pendingUpdatesCount + 1
+    -- sendServerCommand(Core.name, Core.commands.hazmatZed, {
+    --     zombieId = arguments.zombieId
+    -- })
 
 end
 
@@ -24,8 +31,9 @@ Commands[Core.commands.cure] = function(player, arguments)
 
     local playerdata = player:getModData()
     local bodyDamage = player:getBodyDamage();
-    bodyDamage:setInfected(false);
-    bodyDamage:setInfectionMortalityDuration(-1);
+    local stats = player:getStats();
+    -- bodyDamage:setInfected(false);
+    -- bodyDamage:setInfectionMortalityDuration(-1);
 
     local bodyParts = bodyDamage:getBodyParts();
     local wasInfected = false
@@ -42,9 +50,10 @@ Commands[Core.commands.cure] = function(player, arguments)
             applied = true
             wasInfected = true
             bodyPart:SetInfected(false);
-            bodyPart:SetFakeInfected(false);
-            -- bodyPart:RestoreToFullHealth();
-            bodyDamage:setInfected(false);
+            -- bodyPart:setInfectionLevel(0);
+            -- bodyPart:SetFakeInfected(false);
+            bodyPart:RestoreToFullHealth();
+
         end
 
         if bodyPart:bitten() and Core.getOption("CureBite") then
@@ -69,6 +78,14 @@ Commands[Core.commands.cure] = function(player, arguments)
             bodyPart:setScratched(false, true)
             bodyPart:setScratchTime(0)
         end
+    end
+
+    if wasInfected then
+        Core.debugLn("Removing virus")
+        bodyDamage:setInfected(false);
+        bodyDamage:setInfectionMortalityDuration(-1);
+        stats:set(CharacterStat.ZOMBIE_INFECTION, 0)
+        stats:set(CharacterStat.ZOMBIE_FEVER, 0)
     end
 
     Core.debugLn(

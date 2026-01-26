@@ -4,6 +4,7 @@ end
 local Core = PhunCure
 local PL = PhunLib
 local Commands = require("PhunCure/client_commands")
+local getTimestamp = getTimestamp
 
 local function setup()
     Events.OnTick.Remove(setup)
@@ -14,8 +15,27 @@ end
 
 Events.OnTick.Add(setup)
 
+local nextCheck = getTimestamp()
+
+-- === Main OnTick Handler ===
 Events.OnTick.Add(function()
     Core.processQueue()
+    if getTimestamp() >= nextCheck then
+        nextCheck = getTimestamp() + 1
+
+        if #Core.toSendQueue > 0 then
+            local vars = {}
+            for _, v in ipairs(Core.toSendQueue) do
+                if Core.zIds[v] == nil then
+                    vars[v] = 0
+                else
+                    vars[v] = Core.zIds[v]
+                end
+            end
+            sendClientCommand(Core.name, Core.commands.hazmatZed, vars)
+            Core.toSendQueue = {}
+        end
+    end
 end)
 
 if PhunSprinters then
@@ -27,13 +47,8 @@ if PhunSprinters then
     end)
 end
 
-Events.OnZombieDead.Add(function(zed)
-
-    local outfit = zed:getOutfitName()
-    print("Zombie dead outfit: " .. tostring(outfit))
-end);
-
 Events.OnZombieUpdate.Add(function(zed)
+    -- print("OnZombieUpdate for zed id " .. tostring(Core.getZId(zed)))
     Core.enqueueUpdate(zed)
 end)
 

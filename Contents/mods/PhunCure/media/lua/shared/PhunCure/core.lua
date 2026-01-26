@@ -9,14 +9,16 @@ PhunCure = {
         cure = "cure"
     },
     events = {
-        onReady = "PhunCureOnReady"
+        OnReady = "PhunCureOnReady"
     },
     settings = {},
     ui = {},
     modules = {},
     queueIds = {},
     queue = {},
-    dressQueue = {}
+    dressQueue = {},
+    toSendQueue = {},
+    zIds = {}
 }
 
 local Core = PhunCure
@@ -64,12 +66,26 @@ function Core.getZId(zed)
         if instanceof(zed, "IsoZombie") then
             if zed:isZombie() then
                 if isClient() or isServer() then
-                    return zed:getOnlineID()
+                    return tostring(zed:getOnlineID())
                 else
-                    return zed:getID()
+                    return tostring(zed:getID())
                 end
             end
         end
+    end
+end
+
+function Core.addToSend(id, value)
+    if value == 0 then
+        value = nil
+    end
+    local update = Core.zIds[id] ~= value
+    Core.zIds[id] = value
+    if Core.isLocal then
+        return
+    end
+    if update then
+        table.insert(Core.toSendQueue, id)
     end
 end
 

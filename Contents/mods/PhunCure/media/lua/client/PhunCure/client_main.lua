@@ -7,6 +7,7 @@ local PL = PhunLib
 local PZ = PhunZones
 
 function Core.enqueueUpdate(zed, force)
+
     if not zed or zed:isDead() then
         return
     end
@@ -14,14 +15,18 @@ function Core.enqueueUpdate(zed, force)
     local data = zed:getModData()
     local id = tostring(Core.getZId(zed))
 
-    if Core.dressQueue[id] then
-        -- already dressed
+    if Core.dressQueue[id] or (data.PhunCure and data.PhunCure.cure and zed:getOutfitName() ~= "HazardSuit") then
+        -- Not dressed
         Core.dressQueue[id] = nil
-
-        zed:dressInNamedOutfit("HazardSuit")
+        Core.queueIds[id] = nil
+        data.PhunCure = {
+            id = id,
+            cure = true
+        }
+        zed:dressInPersistentOutfit("HazardSuit")
         zed:resetModelNextFrame()
         zed:resetModel()
-
+        return
     end
 
     if data.PhunCure and data.PhunCure.id == id then
@@ -60,7 +65,7 @@ function Core.processQueue()
 
     while #Core.queue > 0 and count < maxCount do
         local zed = table.remove(Core.queue, 1)
-        Core.queueIds[tostring(Core.getZId(zed))] = nil
+        Core.queueIds[Core.getZId(zed)] = nil
         Core.testZed(zed)
         count = count + 1
     end
@@ -76,9 +81,15 @@ function Core.testZed(zed)
         -- already hazmat
         return
     end
-
+    local id = Core.getZId(zed)
     local location = nil
     local data = zed:getModData()
+    if data.PhunCure and data.PhunCure.id ~= id then
+        data.PhunCure = {
+            id = id
+        }
+    end
+
     location = PZ and PZ:getLocation(zed)
 
     local rate = tonumber(location and location.cureDropRate or Core.settings.DefaultDropRate) or 0
@@ -87,9 +98,11 @@ function Core.testZed(zed)
 
     if rate <= 0 and not isSprinter then
         Core.debugLn("Cure drop rate is 0%.")
+        zed:transmitModData()
         return
     elseif isSprinter and sprinterRate <= 0 then
         Core.debugLn("Cure drop rate is 0%.")
+        zed:transmitModData()
         return
     elseif isSprinter then
         rate = sprinterRate
@@ -97,17 +110,17 @@ function Core.testZed(zed)
     local roll = ZombRand(10000) + 1
     Core.debugLn("Roll is " .. roll .. " vs " .. rate)
     if roll <= rate then
-        Core.debugLn("Zed is getting hazmat outfit.")
+        data.PhunCure.cure = true
+        Core.addToSend(id, true)
+        -- sendClientCommand(Core.name, Core.commands.hazmatZed, {
+        --     zombieId = id
+        -- })
+        Core.dressQueue[id] = true
 
-        sendClientCommand(Core.name, Core.commands.hazmatZed, {
-            zombieId = Core.getZId(zed)
-        })
-        Core.dressQueue[Core.getZId(zed)] = true
-
-        zed:dressInNamedOutfit("HazardSuit")
-        zed:resetModelNextFrame()
-        zed:resetModel()
+        -- zed:dressInNamedOutfit("HazardSuit")
+        -- zed:resetModelNextFrame()
+        -- zed:resetModel()
 
     end
-
+    zed:transmitModData()
 end

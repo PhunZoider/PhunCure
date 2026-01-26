@@ -7,7 +7,14 @@ local PL = PhunLib
 local Commands = {}
 
 Commands[Core.commands.hazmatZed] = function(arguments)
-    Core.dressQueue[arguments.zombieId] = true
+
+    for zedId, status in pairs(arguments) do
+        Core.addToSend(zedId, status)
+        if status then
+            Core.dressQueue[zedId] = true
+        end
+    end
+
 end
 
 Commands[Core.commands.cure] = function(arguments)

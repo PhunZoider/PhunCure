@@ -4,6 +4,7 @@ end
 require "PhunCure/core"
 local Commands = require "PhunCure/server_commands"
 local Core = PhunCure
+local getTimestamp = getTimestamp
 
 Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     if module == Core.name and Commands[command] then
@@ -11,10 +12,32 @@ Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     end
 end)
 
+local nextCheck = getTimestamp()
+Events.OnTick.Add(function()
+
+    if getTimestamp() >= nextCheck then
+        nextCheck = getTimestamp() + 1
+
+        if #Core.toSendQueue > 0 then
+            local vars = {}
+            for _, v in ipairs(Core.toSendQueue) do
+                if Core.zIds[v] == nil then
+                    vars[v] = 0
+                else
+                    vars[v] = Core.zIds[v]
+                end
+            end
+            sendServerCommand(Core.name, Core.commands.hazmatZed, vars)
+            Core.toSendQueue = {}
+        end
+    end
+end)
+
 Events.OnZombieDead.Add(function(zed)
 
-    local outfit = zed:getOutfitName()
-    if tostring(outfit) == "HazardSuit" then
+    local id = Core.getZId(zed)
+    if Core.zIds[id] ~= nil then
+        zed:dressInPersistentOutfit("HazardSuit")
         local expiredChance = Core.getOption("ExpiredChance", 0)
         if expiredChance > 0 then
             local roll = ZombRand(1, 101)
@@ -33,7 +56,12 @@ Events.OnZombieDead.Add(function(zed)
         local inventory = zed:getInventory()
         local item = zed:getInventory():AddItems("PhunCure.Cure", 1)
 
+        -- zed:resetModelNextFrame()
+        -- zed:resetModel()
+
         -- sendAddItemsToContainer(zed:getInventory(), item);
+
+        Core.addToSend(id, nil)
     end
 end);
 
