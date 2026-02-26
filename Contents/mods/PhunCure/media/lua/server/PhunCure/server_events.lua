@@ -48,18 +48,12 @@ Events.OnZombieDead.Add(function(zed)
                 local items = zed:getInventory():AddItems("PhunCure.Cure", 1)
                 for i = 0, items:size() - 1 do
                     items:get(i):setAge(items:get(i):getOffAgeMax() + ZombRand(1, 10));
-                    -- sendAddItemToContainer(zed:getInventory(), items:get(i));
                 end
                 return
             end
         end
         local inventory = zed:getInventory()
         local item = zed:getInventory():AddItems("PhunCure.Cure", 1)
-
-        -- zed:resetModelNextFrame()
-        -- zed:resetModel()
-
-        -- sendAddItemsToContainer(zed:getInventory(), item);
 
         Core.addToSend(id, nil)
     end
