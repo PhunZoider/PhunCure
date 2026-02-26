@@ -1,23 +1,19 @@
 VERSION = 1,
 
-option PhunCure.DefaultDropRate
+option PhunCure.DefDropRate
 {
-    type = integer,
-    default = 1,
-    min = 0,
-    max = 10000,
+    type = string,
+    default = "1",
     page = PhunCure,
-    translation = PhunCure_DefaultDropRate,
+    translation = PhunCure_DefDropRate,
 }
 
-option PhunCure.DefaultSprinterDropRate
+option PhunCure.DefSprinterDropRate
 {
-    type = integer,
-    default = 1,
-    min = 0,
-    max = 10000,
+    type = string,
+    default = "1",
     page = PhunCure,
-    translation = PhunCure_DefaultSprinterDropRate,
+    translation = PhunCure_DefSprinterDropRate,
 }
 
 option PhunCure.ExpiredChance
@@ -91,24 +87,24 @@ option PhunCure.Debug
     translation = PhunCure_Debug,
 }
 
-option PhunCure.MinDistance
+option PhunCure.MinimumDistance
 {
     type = integer, 
-    default = 400,
+    default = 14,
     min = 0,
     max = 10000,
     page=PhunCure,
-    translation = PhunCure_MinDistance,
+    translation = PhunCure_MinimumDistance,
 }
 
-option PhunCure.MaxDistance
+option PhunCure.MaximumDistance
 {
     type = integer, 
-    default = 3000,
+    default = 35,
     min = 0,
     max = 10000,
     page=PhunCure,
-    translation = PhunCure_MaxDistance,
+    translation = PhunCure_MaximumDistance,
 }
 
 option PhunCure.MaxQueue

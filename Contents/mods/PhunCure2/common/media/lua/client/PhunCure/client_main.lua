@@ -3,7 +3,6 @@ if isServer() then
 end
 
 local Core = PhunCure
-local PL = PhunLib
 local PZ = PhunZones
 
 function Core.enqueueUpdate(zed, force)
@@ -45,12 +44,15 @@ function Core.enqueueUpdate(zed, force)
         end
     end
 
-    local dx, dy = zed:getX() - player:getX(), zed:getY() - player:getY()
-    local distance = dx * dx + dy * dy
-    if distance < (Core.settings.MinDistance or 400) then
+    local distance = 0
+    if player and zed and player.DistToProper then
+        distance = player:DistToProper(zed)
+    end
+
+    if distance < (Core.settings.MinimumDistance or 14) then
         -- zed is "too close" to test
         return
-    elseif distance > (Core.settings.MaxDistance or 3000) then
+    elseif distance > (Core.settings.MaximumDistance or 35) then
         -- too far away
         return
     end
@@ -70,8 +72,9 @@ function Core.processQueue()
         count = count + 1
     end
 
-    if Core.settings.Debug and count == maxCount then
-        print("PhunSprinters: Queue full — " .. tostring(#Core.queue) .. " more zombies waiting.")
+    if count == maxCount then
+        Core.debugLn("Processed " .. tostring(count) .. " zombies, but queue is not empty. Remaining: " ..
+                         tostring(#Core.queue))
     end
 end
 
@@ -92,8 +95,10 @@ function Core.testZed(zed)
 
     location = PZ and PZ:getLocation(zed)
 
-    local rate = tonumber(location and location.cureDropRate or Core.settings.DefaultDropRate) or 0
-    local sprinterRate = tonumber(location and location.dropRateSprinters or Core.settings.DefaultSprinterDropRate) or 0
+    local rate = math.floor((tonumber(location and location.cureDropRate or Core.settings.DefDropRate) or 0) * 100)
+    local sprinterRate = math.floor((tonumber(location and location.dropRateSprinters or
+                                                  Core.settings.DefSprinterDropRate) or 0) * 100)
+
     local isSprinter = data and data.PhunSprinters and data.PhunSprinters.sprinter or false
 
     if rate <= 0 and not isSprinter then
@@ -112,15 +117,7 @@ function Core.testZed(zed)
     if roll <= rate then
         data.PhunCure.cure = true
         Core.addToSend(id, true)
-        -- sendClientCommand(Core.name, Core.commands.hazmatZed, {
-        --     zombieId = id
-        -- })
         Core.dressQueue[id] = true
-
-        -- zed:dressInNamedOutfit("HazardSuit")
-        -- zed:resetModelNextFrame()
-        -- zed:resetModel()
-
     end
     zed:transmitModData()
 end

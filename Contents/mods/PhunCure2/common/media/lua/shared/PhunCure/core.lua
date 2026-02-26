@@ -15,6 +15,7 @@ PhunCure = {
     ui = {},
     modules = {},
     queueIds = {},
+    tools = require("PhunCure/tools"),
     queue = {},
     dressQueue = {},
     toSendQueue = {},
@@ -22,7 +23,6 @@ PhunCure = {
 }
 
 local Core = PhunCure
-local PL = PhunLib
 
 Core.isLocal = not isClient() and not isServer() and not isCoopHost()
 Core.settings = SandboxVars[Core.name] or {}
@@ -34,9 +34,6 @@ end
 
 function Core:ini()
     self.inied = true
-    if not isClient() then
-
-    end
     triggerEvent(self.events.OnReady, self)
 end
 
@@ -57,7 +54,7 @@ end
 
 function Core.debug(...)
     if Core.settings.Debug then
-        PL.debug(Core.name, ...)
+        Core.tools.debug(Core.name, ...)
     end
 end
 
@@ -96,7 +93,7 @@ Core.cure = function(food, player, percent)
             sendClientCommand(player, Core.name, Core.commands.cure, {})
         else
             player:Say(getText("IGUI_ItemRottenAmpule"));
-            PL.addLineInChat(getText("IGUI_ItemSuccessAmpule_NoSuccess"), "<RGB:255,255,0>");
+            Core.tools.addLineInChat(getText("IGUI_ItemSuccessAmpule_NoSuccess"), "<RGB:255,255,0>");
         end
     else
         Core.debugLn("Cure command received for player " .. tostring(player:getUsername()))

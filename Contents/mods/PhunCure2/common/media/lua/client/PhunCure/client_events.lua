@@ -2,9 +2,9 @@ if isServer() then
     return
 end
 local Core = PhunCure
-local PL = PhunLib
 local Commands = require("PhunCure/client_commands")
 local getTimestamp = getTimestamp
+local activeMods = getActivatedMods()
 
 local function setup()
     Events.OnTick.Remove(setup)
@@ -38,7 +38,7 @@ Events.OnTick.Add(function()
     end
 end)
 
-if PhunSprinters then
+if activeMods:contains("\\phunsprinters2") and PhunSprinters then
     Events[PhunSprinters.events.onSprinterAdded].Add(function(zed)
 
         zed:getModData().PhunCure = nil -- remove any existing data to retest
@@ -48,7 +48,6 @@ if PhunSprinters then
 end
 
 Events.OnZombieUpdate.Add(function(zed)
-    -- print("OnZombieUpdate for zed id " .. tostring(Core.getZId(zed)))
     Core.enqueueUpdate(zed)
 end)
 
@@ -56,10 +55,10 @@ Events.EveryTenMinutes.Add(function()
     -- periodically refresh cash of settings
     Core.settings.Debug = Core.getOption("Debug", false)
     Core.settings.MaxQueue = Core.getOption("MaxQueue", 10)
-    Core.settings.DefaultDropRate = Core.getOption("DefaultDropRate", 0)
-    Core.settings.DefaultSprinterDropRate = Core.getOption("DefaultSprinterDropRate", 0)
-    Core.settings.MinDistance = Core.getOption("MinDistance", 400)
-    Core.settings.MaxDistance = Core.getOption("MaxDistance", 3000)
+    Core.settings.DefDropRate = Core.getOption("DefDropRate", "1")
+    Core.settings.DefSprinterDropRate = Core.getOption("DefSprinterDropRate", "1")
+    Core.settings.MinimumDistance = Core.getOption("MinimumDistance", 14)
+    Core.settings.MaximumDistance = Core.getOption("MaximumDistance", 35)
 end)
 
 Events.OnServerCommand.Add(function(module, command, arguments)

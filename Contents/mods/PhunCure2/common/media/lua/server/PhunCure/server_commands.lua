@@ -13,52 +13,33 @@ Commands[Core.commands.hazmatZed] = function(playerObj, arguments)
             Core.dressQueue[zedId] = true
         end
     end
-
-    -- if Core.pendingUpdates == nil then
-    --     Core.pendingUpdates = {}
-    --     Core.pendingUpdatesCount = 0
-    -- end
-
-    -- Core.pendingUpdates[arguments.zombieId] = "hazmat"
-    -- Core.pendingUpdatesCount = Core.pendingUpdatesCount + 1
-    -- sendServerCommand(Core.name, Core.commands.hazmatZed, {
-    --     zombieId = arguments.zombieId
-    -- })
-
 end
 
 Commands[Core.commands.cure] = function(player, arguments)
 
-    local playerdata = player:getModData()
     local bodyDamage = player:getBodyDamage();
     local stats = player:getStats();
-    -- bodyDamage:setInfected(false);
-    -- bodyDamage:setInfectionMortalityDuration(-1);
 
     local bodyParts = bodyDamage:getBodyParts();
     local wasInfected = false
     local wasScratched = false
     local wasInfectedWound = false
     local wasBitten = false
-    local applied = false
+
     for i = bodyParts:size() - 1, 0, -1 do
 
         local bodyPart = bodyParts:get(i);
 
         if bodyPart:IsInfected() and Core.getOption("CureInfection") then
             Core.debugLn("Curing infected body part: " .. BodyPartType.ToString(bodyPart:getType()))
-            applied = true
             wasInfected = true
             bodyPart:SetInfected(false);
-            -- bodyPart:setInfectionLevel(0);
-            -- bodyPart:SetFakeInfected(false);
             bodyPart:RestoreToFullHealth();
 
         end
 
         if bodyPart:bitten() and Core.getOption("CureBite") then
             Core.debugLn("Curing bitten body part: " .. BodyPartType.ToString(bodyPart:getType()))
-            applied = true
             wasBitten = true
             bodyPart:SetBitten(false);
             bodyPart:RestoreToFullHealth();
@@ -66,14 +47,12 @@ Commands[Core.commands.cure] = function(player, arguments)
         if bodyPart:isInfectedWound() and Core.getOption("CureWound") then
 
             Core.debugLn("Curing infected wound on body part: " .. BodyPartType.ToString(bodyPart:getType()))
-            applied = true
             wasInfectedWound = true
             bodyPart:setWoundInfectionLevel(-1)
         end
 
         if Core.getOption("CureScratch") and bodyPart:getScratchTime() > 0 then
             Core.debugLn("Curing scratched body part: " .. BodyPartType.ToString(bodyPart:getType()))
-            applied = true
             wasScratched = true
             bodyPart:setScratched(false, true)
             bodyPart:setScratchTime(0)

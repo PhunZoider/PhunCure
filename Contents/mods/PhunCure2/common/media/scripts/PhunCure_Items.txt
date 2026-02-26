@@ -14,7 +14,6 @@ module PhunCure
 		Weight				= 0.01,
 		Icon				= Cure,
 		CantEat				= false,
-		EatType				= Pot,
 
         Type				= Food,
 		HungerChange 		= +1,

@@ -3,7 +3,6 @@ if isServer() then
 end
 
 local Core = PhunCure
-local PL = PhunLib
 local Commands = {}
 
 Commands[Core.commands.hazmatZed] = function(arguments)
@@ -26,11 +25,11 @@ Commands[Core.commands.cure] = function(arguments)
 
         if player then
             player:Say(getText("IGUI_ItemSuccessAmpule_" .. ZombRand(1, 4)));
-            PL.addLineInChat(getText("IGUI_ItemSuccessAmpule_Success"), "<RGB:0,255,0>");
+            Core.tools.addLineInChat(getText("IGUI_ItemSuccessAmpule_Success"), "<RGB:0,255,0>");
         end
     else
         if player then
-            PL.addLineInChat(getText("IGUI_ItemSuccessAmpule_NoSuccess"), "<RGB:255,255,0>");
+            Core.tools.addLineInChat(getText("IGUI_ItemSuccessAmpule_NoSuccess"), "<RGB:255,255,0>");
         end
     end
 end

@@ -44,7 +44,7 @@ Events.OnZombieDead.Add(function(zed)
             if roll <= expiredChance then
                 Core.debugLn("Zombie " .. tostring(Core.getZId(zed)) .. " dropped an expired cure (roll " ..
                                  tostring(roll) .. " <= " .. tostring(expiredChance) .. ")")
-                local inventory = zed:getInventory()
+
                 local items = zed:getInventory():AddItems("PhunCure.Cure", 1)
                 for i = 0, items:size() - 1 do
                     items:get(i):setAge(items:get(i):getOffAgeMax() + ZombRand(1, 10));
@@ -52,8 +52,8 @@ Events.OnZombieDead.Add(function(zed)
                 return
             end
         end
-        local inventory = zed:getInventory()
-        local item = zed:getInventory():AddItems("PhunCure.Cure", 1)
+
+        zed:getInventory():AddItems("PhunCure.Cure", 1)
 
         Core.addToSend(id, nil)
     end
