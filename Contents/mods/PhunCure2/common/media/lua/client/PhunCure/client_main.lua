@@ -93,7 +93,7 @@ function Core.testZed(zed)
         }
     end
 
-    location = PZ and PZ:getLocation(zed)
+    location = PZ and PZ.getLocation(zed)
 
     local rate = math.floor((tonumber(location and location.cureDropRate or Core.settings.DefDropRate) or 0) * 100)
     local sprinterRate = math.floor((tonumber(location and location.dropRateSprinters or

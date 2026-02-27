@@ -38,8 +38,9 @@ Events.OnTick.Add(function()
     end
 end)
 
-if activeMods:contains("\\phunsprinters2") and PhunSprinters then
-    Events[PhunSprinters.events.onSprinterAdded].Add(function(zed)
+if (activeMods:contains("\\phunsprinters2") or activeMods:contains("\\phunsprinters2test")) and PhunSprinters then
+    local PS = PhunSprinters
+    Events[PS.events.OnSprinterAdded].Add(function(zed)
 
         zed:getModData().PhunCure = nil -- remove any existing data to retest
         Core.enqueueUpdate(zed, true)

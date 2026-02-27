@@ -1,47 +1,48 @@
 version=1
+id=3674595589
 title=PhunCure 2
-description=A B42 single and multiplayer mod that allows zeds to drop a cure for the infection. Totally inspired by the awesome TheyKnew
+description=Someone was on to a cure, now you just got to find it! A Build 42 single and multiplayer mod that enables zeds to drop a cure for the Knox infection. Inspired by the awesome They Knew.
 description=
 description=[H2]Highlights[/H2]
 description=[list]
-description=[*]Designed for Multiplayer, but works in single player too
-description=[*]Configure the drop rate
-description=[*]The cure (optionally) goes off after a few days. Keep cold or in the fridge to keep longer
-description=[*]Optionally integrates very well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233]PhunSprinters 2[/url] which will give you different drop rates for sprinters vs normal zeds
-description=[*]Optionally integrates very well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450]PhunZones 2[/url] which will give you zone specific settings for drop rates (eg higher drop rates in Louisville)
+description=[*]Designed for Multiplayer, fully compatible with Single Player
+description=[*]Fully configurable drop rates
+description=[*]Optional spoilage system, keep cures refrigerated to extend life
+description=[*]Optional integration with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233]PhunSprinters 2[/url] for different sprinter vs normal drop rates
+description=[*]Optional integration with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450]PhunZones 2[/url] for zone-specific drop rates (e.g. higher rates in Louisville)
 description=[/list]
 description=
-description=What is new in PhunCure 2?
+description=[H2]What’s New in PhunCure 2[/H2]
 description=[list]
-description=[*]Support for PhunZone 2
-description=[*]Rewired the PhunSprinters 2 integration
-description=[*]Integrated PhunLib components so that is no longer a requirement
-description=[*]Changed chance formats and distance formats
-description=[*]Optomisations and cleanup
+description=[*]Full support for PhunZones 2
+description=[*]Rebuilt PhunSprinters 2 integration
+description=[*]PhunLib components integrated — no longer required as a dependency
+description=[*]Reworked chance and distance systems
+description=[*]Performance optimisations and cleanup for Build 42+
 description=[/list]
 description=
-description=Global Settings
+description=[H2]Global Settings[/H2]
 description=[table]
 description=[tr][th]Setting[/th][th]Description[/th][/tr]
-description=[tr][td][b]Default Drop Rate[/b][/td][td]The chance out of 100 of a cure carrying zed appearing. eg 10 = 10%, 5.5 = 5.5%[/td][/tr]
-description=[tr][td][b]Default Sprinter Drop Rate[/b][/td][td]The chance out of 100 that the sprinter is packing a cure. eg 10 = 10%, 5.5 = 5.5%[/td][/tr]
-description=[tr][td][b]Expired Cure Chance[/b][/td][td]The chance (out of 100) that the cure will allready be rotten which can further increase rarity. Note that if you disabled rotting below (eg Days to Rot = 0) then this value will have no affect. 0 means they will always be fresh, 50 means that half of the cures found will be expired and unusable[/td][/tr]
-description=[tr][td][b]Days to Rot[/b][/td][td]Number of days the cure is good for without keeping in fridge or freezer. Set to 0 or a crazy high number to disable (default is 4 days). Note this value only applies after a restart and only to newly created items[/td][/tr]
-description=[tr][td][b]Days Fresh[/b][/td][td]Number of days that the cure is considered fresh. Currently has no benefit. Default is 1 day. Note that changing this value only applies after a restart and to newly created items[/td][/tr]
-description=[tr][td][b]Cure Virus[/b][/td][td]Injecting a valid cure will remove the knox virus[/td][/tr]
-description=[tr][td][b]Heal Wound[/b][/td][td]Injecting a valid cure will heal any infected wound (eg instead of using anti biotics). This is different to the knox virus[/td][/tr]
-description=[tr][td][b]Heal Bite[/b][/td][td]Injecting a valid cure will heal body part bite[/td][/tr]
-description=[tr][td][b]Heal Scratch[/b][/td][td]Injecting a valid cure will heal any scratch[/td][/tr]
-description=[tr][td][b]Debug[/b][/td][td]Threshold for global ambient light before sprinting is triggered. The higher this value, the lighter it can be to make sprinters run[/td][/tr]
-description=[tr][td][b]Minimum Distance[/b][/td][td]The minimum distance of player to zed must be to process the chance of carrier (this is to prevent sudden popins)[/td][/tr]
-description=[tr][td][b]Maximum Distance[/b][/td][td]The maximum distance of player to zed must be to process the chance of being a carrier (this is to improve performance trying to process zeds that are too far away)[/td][/tr]
-description=[tr][td][b]Queue Size[/b][/td][td]The max number of zeds to update per tick[/td][/tr]
+description=[tr][td][b]Default Drop Rate[/b][/td][td]Chance out of 100 that a zed is carrying a cure. (10 = 10%, 5.5 = 5.5%)[/td][/tr]
+description=[tr][td][b]Default Sprinter Drop Rate[/b][/td][td]Chance out of 100 that a sprinter is carrying a cure.[/td][/tr]
+description=[tr][td][b]Expired Cure Chance[/b][/td][td]Chance (out of 100) that the cure is already expired. Further increases rarity. Has no effect if spoilage is disabled (Days to Rot = 0).[/td][/tr]
+description=[tr][td][b]Days to Rot[/b][/td][td]Number of days the cure remains usable without refrigeration. Set to 0 or a very high value to disable spoilage. Applies only after restart and to newly created items.[/td][/tr]
+description=[tr][td][b]Days Fresh[/b][/td][td]Number of days the cure is considered fresh (currently cosmetic only). Applies only after restart and to newly created items.[/td][/tr]
+description=[tr][td][b]Cure Virus[/b][/td][td]Injecting a valid cure removes the Knox infection.[/td][/tr]
+description=[tr][td][b]Heal Wound[/b][/td][td]Injecting a valid cure heals infected wounds (separate from the Knox virus).[/td][/tr]
+description=[tr][td][b]Heal Bite[/b][/td][td]Injecting a valid cure heals bites.[/td][/tr]
+description=[tr][td][b]Heal Scratch[/b][/td][td]Injecting a valid cure heals scratches.[/td][/tr]
+description=[tr][td][b]Debug[/b][/td][td]Enables debug logging for troubleshooting and balancing.[/td][/tr]
+description=[tr][td][b]Minimum Distance[/b][/td][td]Minimum distance between player and zed before carrier chance is processed (prevents pop-in behaviour).[/td][/tr]
+description=[tr][td][b]Maximum Distance[/b][/td][td]Maximum distance for carrier processing (improves performance by ignoring distant zeds).[/td][/tr]
+description=[tr][td][b]Queue Size[/b][/td][td]Maximum number of zeds processed per tick.[/td][/tr]
 description=[/table]
 description=
-description=For individual zone settings in PhunZones, just edit the zone (I suggest the default zone to start with) and set your specific Drop rates there. If those are empty, the system uses the values found in your Sandbox Options
+description=For individual zone settings in PhunZones 2, edit the zone (start with Default Zone) and configure drop rates there. If left empty, sandbox values are used.
 description=
-description=[H2]More Phun Stuff[/h2]
-description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233][img]https://i.ibb.co/k6cQ4h7d/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450][img]https://i.ibb.co/x8H5KRhs/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3606988132][img]https://i.ibb.co/ZtQtmJd/preview.png[/img][/url]
+description=[H2]More Phun Stuff[/H2]
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3674596146][img]https://i.ibb.co/3mQpB8ST/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3674596402][img]https://i.ibb.co/d4y0BhnF/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url]
 description=
 description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunCure]GitHub repo and more info[/url]
 tags=Build 42;Items;Multiplayer
