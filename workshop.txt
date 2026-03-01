@@ -41,6 +41,8 @@ description=[/table]
 description=
 description=For individual zone settings in PhunZones 2, edit the zone (start with Default Zone) and configure drop rates there. If left empty, sandbox values are used.
 description=
+description=[img]https://i.ibb.co/DZ7Vffn/Thumbs-Up.png[/img]
+description=
 description=[h2]More Phun Stuff[/h2]
 description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676252660][img]https://i.ibb.co/3mQpB8ST/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676252110][img]https://i.ibb.co/d4y0BhnF/preview.png[/img][/url] 
 description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676251425][img]https://i.ibb.co/svW9sVvK/preview.png[/img][/url] 
