@@ -1,5 +1,5 @@
 version=1
-id=3674595589
+id=3676251425
 title=PhunCure 2
 description=Someone was on to a cure, now you just got to find it! A Build 42 single and multiplayer mod that enables zeds to drop a cure for the Knox infection. Inspired by the awesome They Knew.
 description=
@@ -41,8 +41,9 @@ description=[/table]
 description=
 description=For individual zone settings in PhunZones 2, edit the zone (start with Default Zone) and configure drop rates there. If left empty, sandbox values are used.
 description=
-description=[H2]More Phun Stuff[/H2]
-description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3674596146][img]https://i.ibb.co/3mQpB8ST/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3674596402][img]https://i.ibb.co/d4y0BhnF/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url]
+description=[h2]More Phun Stuff[/h2]
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676252660][img]https://i.ibb.co/3mQpB8ST/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676252110][img]https://i.ibb.co/d4y0BhnF/preview.png[/img][/url] 
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676251425][img]https://i.ibb.co/svW9sVvK/preview.png[/img][/url] 
 description=
 description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunCure]GitHub repo and more info[/url]
 tags=Build 42;Items;Multiplayer

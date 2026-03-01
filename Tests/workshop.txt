@@ -1,51 +1,7 @@
 version=1
 id=3674595589
-title=PhunCure 2
-description=⚠️ DEV BRANCH — Preview build for testing and feedback. This version may change frequently and could break between updates.
-description=
-description=Someone was on to a cure, now you just got to find it! A Build 42 single and multiplayer mod that enables zeds to drop a cure for the Knox infection. Inspired by the awesome They Knew.
-description=
-description=[H2]Highlights[/H2]
-description=[list]
-description=[*]Designed for Multiplayer, fully compatible with Single Player
-description=[*]Fully configurable drop rates
-description=[*]Optional spoilage system, keep cures refrigerated to extend life
-description=[*]Optional integration with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233]PhunSprinters 2[/url] for different sprinter vs normal drop rates
-description=[*]Optional integration with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450]PhunZones 2[/url] for zone-specific drop rates (e.g. higher rates in Louisville)
-description=[/list]
-description=
-description=[H2]What’s New in PhunCure 2[/H2]
-description=[list]
-description=[*]Full support for PhunZones 2
-description=[*]Rebuilt PhunSprinters 2 integration
-description=[*]PhunLib components integrated — no longer required as a dependency
-description=[*]Reworked chance and distance systems
-description=[*]Performance optimisations and cleanup for Build 42+
-description=[/list]
-description=
-description=[H2]Global Settings[/H2]
-description=[table]
-description=[tr][th]Setting[/th][th]Description[/th][/tr]
-description=[tr][td][b]Default Drop Rate[/b][/td][td]Chance out of 100 that a zed is carrying a cure. (10 = 10%, 5.5 = 5.5%)[/td][/tr]
-description=[tr][td][b]Default Sprinter Drop Rate[/b][/td][td]Chance out of 100 that a sprinter is carrying a cure.[/td][/tr]
-description=[tr][td][b]Expired Cure Chance[/b][/td][td]Chance (out of 100) that the cure is already expired. Further increases rarity. Has no effect if spoilage is disabled (Days to Rot = 0).[/td][/tr]
-description=[tr][td][b]Days to Rot[/b][/td][td]Number of days the cure remains usable without refrigeration. Set to 0 or a very high value to disable spoilage. Applies only after restart and to newly created items.[/td][/tr]
-description=[tr][td][b]Days Fresh[/b][/td][td]Number of days the cure is considered fresh (currently cosmetic only). Applies only after restart and to newly created items.[/td][/tr]
-description=[tr][td][b]Cure Virus[/b][/td][td]Injecting a valid cure removes the Knox infection.[/td][/tr]
-description=[tr][td][b]Heal Wound[/b][/td][td]Injecting a valid cure heals infected wounds (separate from the Knox virus).[/td][/tr]
-description=[tr][td][b]Heal Bite[/b][/td][td]Injecting a valid cure heals bites.[/td][/tr]
-description=[tr][td][b]Heal Scratch[/b][/td][td]Injecting a valid cure heals scratches.[/td][/tr]
-description=[tr][td][b]Debug[/b][/td][td]Enables debug logging for troubleshooting and balancing.[/td][/tr]
-description=[tr][td][b]Minimum Distance[/b][/td][td]Minimum distance between player and zed before carrier chance is processed (prevents pop-in behaviour).[/td][/tr]
-description=[tr][td][b]Maximum Distance[/b][/td][td]Maximum distance for carrier processing (improves performance by ignoring distant zeds).[/td][/tr]
-description=[tr][td][b]Queue Size[/b][/td][td]Maximum number of zeds processed per tick.[/td][/tr]
-description=[/table]
-description=
-description=For individual zone settings in PhunZones 2, edit the zone (start with Default Zone) and configure drop rates there. If left empty, sandbox values are used.
-description=
-description=[H2]More Phun Stuff[/H2]
-description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3623897097][img]https://i.ibb.co/mCv5kDgy/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3532685233][img]https://i.ibb.co/k6cQ4h7d/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388867450][img]https://i.ibb.co/x8H5KRhs/preview.png[/img][/url] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3606988132][img]https://i.ibb.co/ZtQtmJd/preview.png[/img][/url]
-description=
+title=PhunCure 2 [DEV]
+description=⚠️ DEV BRANCH — Preview build for testing and feedback for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3676251425]PhunCure 2[/url]. This version may change frequently and could break between updates.
 description=Coded with love for our awesome [url=https://discord.gg/v2USyAtP6q]PhunZoid[/url] community. [url=https://github.com/PhunZoider/PhunCure]GitHub repo and more info[/url]
 tags=Build 42;Items;Multiplayer
-visibility=public
+visibility=unlisted
