@@ -1,9 +1,10 @@
-require "PhunZones/core"
 local Core = PhunCure
-local PZ = PhunZones
 
 local activeMods = getActivatedMods()
 if (activeMods:contains("\\phunzones2") or activeMods:contains("\\phunzones2test")) then
+
+    require "PhunZones/core"
+    local PZ = PhunZones
     if PZ and PZ.fields then
 
         PZ.fields.cureDropRate = {
