@@ -1,7 +1,7 @@
 local Core = PhunCure
 
 local activeMods = getActivatedMods()
-if (activeMods:contains("\\phunzones2") or activeMods:contains("\\phunzones2test")) then
+if (activeMods:contains("phunzones2") or activeMods:contains("phunzones2test")) then
 
     require "PhunZones/core"
     local PZ = PhunZones
@@ -15,7 +15,7 @@ if (activeMods:contains("\\phunzones2") or activeMods:contains("\\phunzones2test
             order = 200
         }
 
-        if activeMods:contains("\\phunsprinters2") or activeMods:contains("\\phunsprinters2test") then
+        if activeMods:contains("phunsprinters2") or activeMods:contains("phunsprinters2test") then
 
             PZ.fields.dropRateSprinters = {
                 label = "IGUI_PhunCure_DropRateSprinters",

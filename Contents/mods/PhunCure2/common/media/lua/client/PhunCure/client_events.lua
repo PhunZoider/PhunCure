@@ -38,7 +38,7 @@ Events.OnTick.Add(function()
     end
 end)
 
-if (activeMods:contains("\\phunsprinters2") or activeMods:contains("\\phunsprinters2test")) and PhunSprinters then
+if (activeMods:contains("phunsprinters2") or activeMods:contains("phunsprinters2test")) and PhunSprinters then
     local PS = PhunSprinters
     Events[PS.events.OnSprinterAdded].Add(function(zed)
 
