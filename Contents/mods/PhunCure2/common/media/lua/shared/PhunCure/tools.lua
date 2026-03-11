@@ -87,7 +87,7 @@ function tools.addLineInChat(message, color, options)
         end
     };
 
-    if not ISChat.instance then
+    if not ISChat or not ISChat.instance then
         return;
     end
     if not ISChat.instance.chatText then
