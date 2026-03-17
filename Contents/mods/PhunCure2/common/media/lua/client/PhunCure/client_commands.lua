@@ -5,17 +5,6 @@ end
 local Core = PhunCure
 local Commands = {}
 
-Commands[Core.commands.hazmatZed] = function(arguments)
-
-    for zedId, status in pairs(arguments) do
-        Core.addToSend(zedId, status)
-        if status then
-            Core.dressQueue[zedId] = true
-        end
-    end
-
-end
-
 Commands[Core.commands.cure] = function(arguments)
     Core.debugLn("Cure command received on client with wasInfected=" .. tostring(arguments.wasInfected) ..
                      ", wasInfectedWound=" .. tostring(arguments.wasInfectedWound) .. ", wasScratched=" ..

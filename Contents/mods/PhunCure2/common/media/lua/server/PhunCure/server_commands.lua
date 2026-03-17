@@ -5,16 +5,6 @@ require "PhunCure/core"
 local Core = PhunCure
 local Commands = {}
 
-Commands[Core.commands.hazmatZed] = function(playerObj, arguments)
-
-    for zedId, status in pairs(arguments) do
-        Core.addToSend(zedId, status)
-        if status then
-            Core.dressQueue[zedId] = true
-        end
-    end
-end
-
 Commands[Core.commands.cure] = function(player, arguments)
 
     local bodyDamage = player:getBodyDamage();
@@ -90,4 +80,3 @@ Commands[Core.commands.cure] = function(player, arguments)
 end
 
 return Commands
-

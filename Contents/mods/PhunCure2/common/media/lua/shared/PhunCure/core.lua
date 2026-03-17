@@ -1,25 +1,15 @@
 PhunCure = {
     name = "PhunCure",
-    consts = {},
-    data = {},
     commands = {
         playerSetup = "playerSetup",
         notify = "notify",
-        hazmatZed = "hazmatZed",
         cure = "cure"
     },
     events = {
         OnReady = "PhunCureOnReady"
     },
     settings = {},
-    ui = {},
-    modules = {},
-    queueIds = {},
-    tools = require("PhunCure/tools"),
-    queue = {},
-    dressQueue = {},
-    toSendQueue = {},
-    zIds = {}
+    tools = require("PhunCure/tools")
 }
 
 local Core = PhunCure
@@ -69,20 +59,6 @@ function Core.getZId(zed)
                 end
             end
         end
-    end
-end
-
-function Core.addToSend(id, value)
-    if value == 0 then
-        value = nil
-    end
-    local update = Core.zIds[id] ~= value
-    Core.zIds[id] = value
-    if Core.isLocal then
-        return
-    end
-    if update then
-        table.insert(Core.toSendQueue, id)
     end
 end
 
