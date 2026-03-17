@@ -23,6 +23,7 @@ function Core.enqueueUpdate(zed, force)
             cure = true
         }
         zed:dressInPersistentOutfit("HazardSuit")
+
         zed:resetModelNextFrame()
         zed:resetModel()
         return

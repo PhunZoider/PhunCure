@@ -38,6 +38,7 @@ Events.OnZombieDead.Add(function(zed)
     local id = Core.getZId(zed)
     if Core.zIds[id] ~= nil then
         zed:dressInPersistentOutfit("HazardSuit")
+
         local expiredChance = Core.getOption("ExpiredChance", 0)
         if expiredChance > 0 then
             local roll = ZombRand(1, 101)
