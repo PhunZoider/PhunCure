@@ -16,14 +16,6 @@ option PhunCure.DefSprinterDropRate
     translation = PhunCure_DefSprinterDropRate,
 }
 
-option PhunCure.EnableSprinterCure
-{
-    type = boolean,
-    default = false,
-    page = PhunCure,
-    translation = PhunCure_EnableSprinterCure,
-}
-
 option PhunCure.ExpiredChance
 {
     type = integer,

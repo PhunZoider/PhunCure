@@ -6,24 +6,41 @@ local Commands = require "PhunCure/server_commands"
 local Core = PhunCure
 local getTimestamp = getTimestamp
 
-local activeMods = getActivatedMods()
-local PZ = nil
-if (activeMods:contains("phunzones2") or activeMods:contains("phunzones2test")) and PhunZones then
-    PZ = PhunZones
-end
+local PZ = PhunZones
 
--- Sprinter cure support: intercept PhunSprinters commands to accumulate IDs
+-- Determine if sprinter cure scanning is needed (auto-detected, no setting required)
+local enableSprinterCure = false
 local pendingSprinterIds = {}
+local pendingSprinterCount = 0
+
+if PhunSprinters then
+    local defRate = Core.getOption("DefDropRate", 1)
+    local sprinterRate = Core.getOption("DefSprinterDropRate", 1)
+    if defRate ~= sprinterRate then
+        enableSprinterCure = true
+    elseif PZ and PZ.data and PZ.data.lookup then
+        for _, zone in pairs(PZ.data.lookup) do
+            if zone.cureDropRate ~= zone.dropRateSprinters then
+                enableSprinterCure = true
+                break
+            end
+        end
+    end
+    if enableSprinterCure then
+        Core.debugLn("Sprinter cure scanning enabled")
+    end
+end
 
 Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     if module == Core.name and Commands[command] then
         Commands[command](playerObj, arguments)
     end
 
-    if module == "PhunSprinters" and command == "isSprinter" and Core.getOption("EnableSprinterCure", false) then
+    if enableSprinterCure and module == "PhunSprinters" and command == "isSprinter" then
         for zedId, isSprinter in pairs(arguments) do
-            if isSprinter then
+            if isSprinter and not pendingSprinterIds[tostring(zedId)] then
                 pendingSprinterIds[tostring(zedId)] = true
+                pendingSprinterCount = pendingSprinterCount + 1
             end
         end
     end
@@ -43,7 +60,8 @@ Events.OnZombieCreate.Add(function(zed)
     end
 
     local location = PZ and PZ.getLocation and PZ.getLocation(zed) or nil
-    local rate = math.floor((tonumber(location and location.cureDropRate or Core.getOption("DefDropRate", 1)) or 0) * 100)
+    local rate = math.floor((tonumber(location and location.cureDropRate or Core.getOption("DefDropRate", 1)) or 0) *
+                                100)
 
     if rate <= 0 then
         return
@@ -57,10 +75,10 @@ end)
 
 local nextSprinterCheck = getTimestamp()
 Events.OnTick.Add(function()
-    if not Core.getOption("EnableSprinterCure", false) then
+    if not enableSprinterCure then
         return
     end
-    if not next(pendingSprinterIds) then
+    if pendingSprinterCount == 0 then
         return
     end
     if getTimestamp() < nextSprinterCheck then
@@ -77,6 +95,7 @@ Events.OnTick.Add(function()
     local rate = math.floor((tonumber(Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
     if rate <= 0 then
         pendingSprinterIds = {}
+        pendingSprinterCount = 0
         return
     end
 
@@ -86,15 +105,17 @@ Events.OnTick.Add(function()
         local id = Core.getZId(zed)
         if id and pendingSprinterIds[id] then
             pendingSprinterIds[id] = nil
+            pendingSprinterCount = pendingSprinterCount - 1
             -- Skip if already a carrier
             if tostring(zed:getOutfitName()) ~= "HazardSuit" then
                 local loc = location and location(zed) or nil
-                local r = math.floor((tonumber(loc and loc.dropRateSprinters or Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
+                local r = math.floor(
+                    (tonumber(loc and loc.dropRateSprinters or Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
                 if r > 0 and ZombRand(10000) + 1 <= r then
                     makeCarrier(zed)
                 end
             end
-            if not next(pendingSprinterIds) then
+            if pendingSprinterCount == 0 then
                 break
             end
         end
