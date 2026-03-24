@@ -59,6 +59,20 @@ Events.OnZombieCreate.Add(function(zed)
         return
     end
 
+    if tostring(zed:getOutfitName()) == "HazardSuit" then
+        -- already a carrier
+        return
+    end
+
+    local data = Core.getZData(zed)
+
+    if data.tested then
+        Core.debugLn("Zed " .. tostring(data.id) .. " already tested for cure carrier status, skipping")
+        return
+    else
+        data.tested = true
+    end
+
     local location = PZ and PZ.getLocation and PZ.getLocation(zed) or nil
     local rate = math.floor((tonumber(location and location.cureDropRate or Core.getOption("DefDropRate", 1)) or 0) *
                                 100)

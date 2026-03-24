@@ -62,6 +62,25 @@ function Core.getZId(zed)
     end
 end
 
+function Core.getZData(zed)
+    if zed then
+        local id = Core.getZId(zed)
+        local data = zed:getModData()
+        if not data.PhunCure then
+            data.PhunCure = {
+                id = id
+            }
+        elseif id ~= data.PhunCure.id then
+            -- Possibly recycled zed
+            data.PhunCure = {
+                id = id
+            }
+        end
+        return data.PhunCure
+    end
+    return {}
+end
+
 Core.cure = function(food, player, percent)
     if not isServer() then
         getSoundManager():PlaySound("InjectCure", false, 0):setVolume(0.50);
