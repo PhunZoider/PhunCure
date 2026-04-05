@@ -3,7 +3,7 @@ VERSION = 1,
 option PhunCure.DefDropRate
 {
     type = string,
-    default = 1,
+    default = .1,
     page = PhunCure,
     translation = PhunCure_DefDropRate,
 }
@@ -11,7 +11,7 @@ option PhunCure.DefDropRate
 option PhunCure.DefSprinterDropRate
 {
     type = string,
-    default = 1,
+    default = .1,
     page = PhunCure,
     translation = PhunCure_DefSprinterDropRate,
 }

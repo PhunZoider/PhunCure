@@ -122,11 +122,15 @@ Events.OnTick.Add(function()
             pendingSprinterCount = pendingSprinterCount - 1
             -- Skip if already a carrier
             if tostring(zed:getOutfitName()) ~= "HazardSuit" then
-                local loc = location and location(zed) or nil
-                local r = math.floor(
-                    (tonumber(loc and loc.dropRateSprinters or Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
-                if r > 0 and ZombRand(10000) + 1 <= r then
-                    makeCarrier(zed)
+                local data = Core.getZData(zed)
+                if not data.testedSprinter then
+                    data.testedSprinter = true
+                    local loc = location and location(zed) or nil
+                    local r = math.floor((tonumber(loc and loc.dropRateSprinters or
+                                                       Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
+                    if r > 0 and ZombRand(100000) + 1 <= r then
+                        makeCarrier(zed)
+                    end
                 end
             end
             if pendingSprinterCount == 0 then
