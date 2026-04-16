@@ -52,25 +52,40 @@ local function makeCarrier(zed)
     zed:resetModel()
     Core.debugLn("Carrier zed created")
 end
-
+local tests = {}
+local counts = 0
 -- When a zed spawns, roll the dice. Winners get dressed in hazmat.
 Events.OnZombieCreate.Add(function(zed)
     if not zed then
         return
     end
 
-    if tostring(zed:getOutfitName()) == "HazardSuit" then
-        -- already a carrier
-        return
+    local data = Core.getZData(zed)
+
+    if tests[data.id] then
+        return -- Already tested this zed, skip
     end
 
-    local data = Core.getZData(zed)
+    tests[data.id] = true
+
+    if tostring(zed:getOutfitName()) == "HazardSuit" then
+        -- already a carrier
+        -- tests[data.id] = true
+        if not data.tested then
+            data.tested = true
+            counts = counts + 1
+        end
+        return
+    end
 
     if data.tested then
         Core.debugLn("Zed " .. tostring(data.id) .. " already tested for cure carrier status, skipping")
         return
     else
+
         data.tested = true
+        zed:getModData().PhunCure = data
+
     end
 
     local location = PZ and PZ.getLocation and PZ.getLocation(zed) or nil
@@ -83,8 +98,28 @@ Events.OnZombieCreate.Add(function(zed)
 
     local roll = ZombRand(10000) + 1
     if roll <= rate then
+        Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
+                         " and is a carrier")
+        counts = counts + 1
         makeCarrier(zed)
+        -- else
+        --     Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
+        --                      " and is not a carrier")
     end
+end)
+
+Events.EveryTenMinutes.Add(function()
+    if not Core.settings.Debug then
+        return
+    end
+    local total = 0
+    for _ in pairs(tests) do
+        total = total + 1
+    end
+
+    Core.debugLn("Total zeds tested for cure carrier status: " .. tostring(total) .. ", carriers created: " ..
+                     tostring(counts) .. " = " .. (total > 0 and string.format("%.2f", counts / total * 100) or "0") ..
+                     "%")
 end)
 
 local nextSprinterCheck = getTimestamp()
