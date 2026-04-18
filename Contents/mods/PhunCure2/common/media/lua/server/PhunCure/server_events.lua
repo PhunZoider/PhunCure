@@ -52,10 +52,13 @@ local function makeCarrier(zed)
     zed:resetModel()
     Core.debugLn("Carrier zed created")
 end
+
 local tests = {}
 local counts = 0
+
 -- When a zed spawns, roll the dice. Winners get dressed in hazmat.
 Events.OnZombieCreate.Add(function(zed)
+
     if not zed then
         return
     end
@@ -70,7 +73,6 @@ Events.OnZombieCreate.Add(function(zed)
 
     if tostring(zed:getOutfitName()) == "HazardSuit" then
         -- already a carrier
-        -- tests[data.id] = true
         if not data.tested then
             data.tested = true
             counts = counts + 1
@@ -84,8 +86,6 @@ Events.OnZombieCreate.Add(function(zed)
     else
 
         data.tested = true
-        zed:getModData().PhunCure = data
-
     end
 
     local location = PZ and PZ.getLocation and PZ.getLocation(zed) or nil
@@ -102,16 +102,21 @@ Events.OnZombieCreate.Add(function(zed)
                          " and is a carrier")
         counts = counts + 1
         makeCarrier(zed)
-        -- else
-        --     Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
-        --                      " and is not a carrier")
     end
 end)
 
+Events.EveryDays.Add(function()
+    tests = {}
+    counts = 0
+    Core.debugLn("Resetting carrier debug counts")
+end)
+
 Events.EveryTenMinutes.Add(function()
+
     if not Core.settings.Debug then
         return
     end
+
     local total = 0
     for _ in pairs(tests) do
         total = total + 1
@@ -163,7 +168,7 @@ Events.OnTick.Add(function()
                     local loc = location and location(zed) or nil
                     local r = math.floor((tonumber(loc and loc.dropRateSprinters or
                                                        Core.getOption("DefSprinterDropRate", 1)) or 0) * 100)
-                    if r > 0 and ZombRand(100000) + 1 <= r then
+                    if r > 0 and ZombRand(10000) + 1 <= r then
                         makeCarrier(zed)
                     end
                 end
