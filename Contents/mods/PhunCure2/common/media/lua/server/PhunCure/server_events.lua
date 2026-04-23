@@ -81,7 +81,6 @@ Events.OnZombieCreate.Add(function(zed)
     end
 
     if data.tested then
-        Core.debugLn("Zed " .. tostring(data.id) .. " already tested for cure carrier status, skipping")
         return
     else
 
@@ -93,6 +92,7 @@ Events.OnZombieCreate.Add(function(zed)
                                 100)
 
     if rate <= 0 then
+        Core.debugLn("Zed " .. tostring(data.id) .. " has 0% carrier chance, skipping")
         return
     end
 
@@ -102,6 +102,9 @@ Events.OnZombieCreate.Add(function(zed)
                          " and is a carrier")
         counts = counts + 1
         makeCarrier(zed)
+    else
+        Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
+                         " and is not a carrier")
     end
 end)
 

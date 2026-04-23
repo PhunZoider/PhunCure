@@ -48,15 +48,21 @@ function Core.debug(...)
     end
 end
 
+-- I suppose getOnlineID is no longer a thing in B42.17
+local testForOnlineId = getCore():getGameVersion():getMajor() == 42 and getCore():getGameVersion():getMinor() < 17 and
+                            (isClient() or isServer() or isCoopHost())
+
 function Core.getZId(zed)
     if zed then
         if instanceof(zed, "IsoZombie") then
             if zed:isZombie() then
-                if isClient() or isServer() then
+
+                if testForOnlineId then
                     return tostring(zed:getOnlineID())
                 else
                     return tostring(zed:getID())
                 end
+
             end
         end
     end
