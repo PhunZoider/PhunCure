@@ -24,7 +24,7 @@ Commands[Core.commands.cure] = function(player, arguments)
             Core.debugLn("Curing infected body part: " .. BodyPartType.ToString(bodyPart:getType()))
             wasInfected = true
             bodyPart:SetInfected(false);
-            bodyPart:RestoreToFullHealth();
+            -- bodyPart:RestoreToFullHealth();
 
         end
 
@@ -32,7 +32,7 @@ Commands[Core.commands.cure] = function(player, arguments)
             Core.debugLn("Curing bitten body part: " .. BodyPartType.ToString(bodyPart:getType()))
             wasBitten = true
             bodyPart:SetBitten(false);
-            bodyPart:RestoreToFullHealth();
+            -- bodyPart:RestoreToFullHealth();
         end
         if bodyPart:isInfectedWound() and Core.getOption("CureWound") then
 
@@ -53,6 +53,7 @@ Commands[Core.commands.cure] = function(player, arguments)
         Core.debugLn("Removing virus")
         bodyDamage:setInfected(false);
         bodyDamage:setInfectionMortalityDuration(-1);
+        bodyDamage:setInfectionTime(-1)
         stats:set(CharacterStat.ZOMBIE_INFECTION, 0)
         stats:set(CharacterStat.ZOMBIE_FEVER, 0)
     end
