@@ -102,6 +102,125 @@ Core.cure = function(food, player, percent)
 
 end
 
+-- Body part sync flags used when pushing cured body parts to the owning client.
+-- BD_bitten + BD_bleeding + BD_scratched + BD_IsInfected + BD_IsFakeInfected + BD_scratchTime +
+-- BD_biteTime + BD_woundInfectionLevel + BD_infectedWound + BD_bleedingTime
+Core.bodyPartSyncFlags = 0x3B64C
+
+-- Applies the cure to a character. Called on the server for its copy of the character and,
+-- in multiplayer, on the owning client for its own copy (the client owns the local player's
+-- BodyDamage, so a server side cure alone never reaches the player who drank it).
+-- Returns what was actually cured plus the body parts that were touched.
+function Core.applyCure(player)
+
+    local result = {
+        wasInfected = false,
+        wasBitten = false,
+        wasInfectedWound = false,
+        wasScratched = false,
+        parts = {}
+    }
+
+    if not player then
+        return result
+    end
+
+    local bodyDamage = player:getBodyDamage()
+    local stats = player:getStats()
+    local bodyParts = bodyDamage:getBodyParts()
+
+    local cureInfection = Core.getOption("CureInfection")
+    local cureBite = Core.getOption("CureBite")
+    local cureWound = Core.getOption("CureWound")
+    local cureScratch = Core.getOption("CureScratch")
+
+    if cureInfection and (bodyDamage:isInfected() or bodyDamage:isIsFakeInfected()) then
+        -- the virus can live on BodyDamage even when no body part is still flagged
+        result.wasInfected = true
+    end
+
+    for i = bodyParts:size() - 1, 0, -1 do
+
+        local bodyPart = bodyParts:get(i)
+        local changed = false
+        local partWasInfected = bodyPart:IsInfected()
+
+        if bodyPart:bitten() and cureBite then
+            Core.debugLn("Curing bitten body part: " .. BodyPartType.ToString(bodyPart:getType()))
+            result.wasBitten = true
+            -- NOTE: the single argument BodyPart:SetBitten(false) flags the part as INFECTED again
+            -- (b42 sets isInfected whenever transmission ~= 4, regardless of the argument), which is
+            -- why vanilla's own debug menu clears the bite before the infection. The two argument
+            -- form leaves the infection flags alone.
+            bodyPart:SetBitten(false, false)
+            bodyPart:setBiteTime(0)
+            bodyPart:generateBleeding()
+            changed = true
+        end
+
+        if bodyPart:isInfectedWound() and cureWound then
+            Core.debugLn("Curing infected wound on body part: " .. BodyPartType.ToString(bodyPart:getType()))
+            result.wasInfectedWound = true
+            bodyPart:setWoundInfectionLevel(-1)
+            changed = true
+        end
+
+        if cureScratch and bodyPart:getScratchTime() > 0 then
+            Core.debugLn("Curing scratched body part: " .. BodyPartType.ToString(bodyPart:getType()))
+            result.wasScratched = true
+            bodyPart:setScratched(false, true)
+            bodyPart:setScratchTime(0)
+            changed = true
+        end
+
+        -- always last: anything above can re-flag the part as infected
+        if cureInfection and (partWasInfected or bodyPart:IsInfected() or bodyPart:IsFakeInfected()) then
+            if partWasInfected then
+                Core.debugLn("Curing infected body part: " .. BodyPartType.ToString(bodyPart:getType()))
+                result.wasInfected = true
+            end
+            bodyPart:SetInfected(false)
+            bodyPart:SetFakeInfected(false)
+            changed = true
+        end
+
+        if changed then
+            table.insert(result.parts, bodyPart)
+        end
+    end
+
+    if result.wasInfected then
+        Core.debugLn("Removing virus")
+        bodyDamage:setInfected(false)
+        bodyDamage:setIsFakeInfected(false)
+        bodyDamage:setReduceFakeInfection(false)
+        bodyDamage:setInfectionMortalityDuration(-1)
+        bodyDamage:setInfectionTime(-1)
+        stats:set(CharacterStat.ZOMBIE_INFECTION, 0)
+        stats:set(CharacterStat.ZOMBIE_FEVER, 0)
+    end
+
+    if Core.settings.Debug then
+        -- the virus is invisible in the health panel (that panel's "Infected" line is the
+        -- wound infection), so report the state that actually matters
+        local stillInfected = 0
+        for i = bodyParts:size() - 1, 0, -1 do
+            if bodyParts:get(i):IsInfected() then
+                stillInfected = stillInfected + 1
+            end
+        end
+        Core.debugLn("Post cure state: virus=" .. tostring(bodyDamage:isInfected()) .. ", fakeVirus=" ..
+                         tostring(bodyDamage:isIsFakeInfected()) .. ", infectionTime=" ..
+                         tostring(bodyDamage:getInfectionTime()) .. ", mortalityDuration=" ..
+                         tostring(bodyDamage:getInfectionMortalityDuration()) .. ", zombieInfectionStat=" ..
+                         tostring(stats:get(CharacterStat.ZOMBIE_INFECTION)) .. ", zombieFeverStat=" ..
+                         tostring(stats:get(CharacterStat.ZOMBIE_FEVER)) .. ", infectedParts=" ..
+                         tostring(stillInfected))
+    end
+
+    return result
+end
+
 function Core.applyFreshAndRottenDays()
     local item = ScriptManager.instance:getItem("PhunCure.Cure")
     local daysRotten = Core.getOption("DaysRotten", 5)

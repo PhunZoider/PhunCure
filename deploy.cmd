@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 rem ---------------------------------------------------------------------------
-rem PhunLewt21 deploy.
+rem PhunCure2 deploy.
 rem
 rem v1 spelled every copy step out inline in .vscode/settings.json. With six
 rem mods that would be sixty-odd entries, so the whole pipeline lives here and
@@ -11,24 +11,24 @@ rem
 rem Deploys to:
 rem   %USERPROFILE%\Zomboid\mods\<Mod>              - playable
 rem   %USERPROFILE%\Zomboid\mods\<Mod>Test          - test-id variant
-rem   %USERPROFILE%\Zomboid\Workshop\PhunLewt21     - upload staging
-rem   %USERPROFILE%\Zomboid\Workshop\PhunLewt21Test - test upload staging
+rem   %USERPROFILE%\Zomboid\Workshop\PhunCure2     - upload staging
+rem   %USERPROFILE%\Zomboid\Workshop\PhunCure2Test - test upload staging
 rem ---------------------------------------------------------------------------
 
-set MODS=PhunLewt21
+set MODS=PhunCure2
 
 set SRC=%~dp0
 set MODDIR=%USERPROFILE%\Zomboid\mods
-set WS=%USERPROFILE%\Zomboid\Workshop\PhunLewt21
-set WSTEST=%USERPROFILE%\Zomboid\Workshop\PhunLewt21Test
+set WS=%USERPROFILE%\Zomboid\Workshop\PhunCure2
+set WSTEST=%USERPROFILE%\Zomboid\Workshop\PhunCure2Test
 
-echo [PhunLewt21] Deploying to %MODDIR%
+echo [PhunCure2] Deploying to %MODDIR%
 
 rem --- Live mods -------------------------------------------------------------
 for %%M in (%MODS%) do (
     rmdir /S /Q "%MODDIR%\%%M" 2>nul
     xcopy "%SRC%Contents\mods\%%M" "%MODDIR%\%%M" /Y /I /E /F /Q >nul
-    if errorlevel 1 echo [PhunLewt21] FAILED copying %%M
+    if errorlevel 1 echo [PhunCure2] FAILED copying %%M
 )
 
 rem --- Test-id variants ------------------------------------------------------
@@ -64,5 +64,5 @@ for %%M in (%MODS%) do (
 copy /Y "%SRC%Tests\workshop.txt" "%WSTEST%\workshop.txt" >nul
 if exist "%SRC%Tests\preview.png" copy /Y "%SRC%Tests\preview.png" "%WSTEST%\preview.png" >nul
 
-echo [PhunLewt21] Done.
+echo [PhunCure2] Done.
 endlocal
