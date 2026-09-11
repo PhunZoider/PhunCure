@@ -29,6 +29,9 @@ Sandbox_EN = {
     Sandbox_PhunCure_CureScratch = "Heal Scratch",
     Sandbox_PhunCure_CureScratch_tooltip = "Injecting a valid cure will heal any scratch",
 
+
+    Sandbox_PhunCure_Diagnosis = "Follow Up Diagnosis",
+    Sandbox_PhunCure_Diagnosis_tooltip = "A couple of seconds after injecting, the player says out loud whether they actually had the knox virus. If they are still showing the Sick moodle afterwards it also names the real cause (nearby corpses, or bad food and poison), neither of which the cure touches",
 }
 
 

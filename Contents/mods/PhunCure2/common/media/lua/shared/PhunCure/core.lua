@@ -221,6 +221,55 @@ function Core.applyCure(player)
     return result
 end
 
+-- The b42 Sick moodle is driven by BodyDamage.getApparentInfectionLevel() / 100 plus
+-- CharacterStat.SICKNESS, where the apparent level is the highest of ZOMBIE_FEVER,
+-- ZOMBIE_INFECTION and FOOD_SICKNESS. The cure only clears the two zombie stats, so
+-- anything still showing afterwards is food sickness: poison, bad food or nearby
+-- corpses (BodyDamage.UpdateIllness feeds corpse sickness straight into FOOD_SICKNESS
+-- and will not let it decay at all while corpses are still in range).
+-- MoodleStat.SICK starts at 0.25, ie an apparent level above 25.
+local SICK_MOODLE_THRESHOLD = 25
+
+-- Returns a translation key describing why the player is still sick, or nil if they aren't.
+-- Call this AFTER the cure has been applied.
+function Core.getLingeringSickness(player)
+    if not player then
+        return
+    end
+    local bodyDamage = player:getBodyDamage()
+    if bodyDamage:getApparentInfectionLevel() <= SICK_MOODLE_THRESHOLD then
+        return
+    end
+    if bodyDamage:GetBaseCorpseSickness() > 0 then
+        return "IGUI_PhunCure_Diagnosis_Corpses"
+    end
+    return "IGUI_PhunCure_Diagnosis_Food"
+end
+
+-- Builds the follow up halo telling the player whether they actually had the virus.
+-- Returns nil when the sandbox option is off. `result` must come from applyCure on the
+-- machine that owns the character - in multiplayer the server derives BodyDamage.isInfected
+-- from the synced body part flags and never receives the client's zombie stats, so the
+-- client's own result is the accurate one.
+function Core.getDiagnosis(player, result)
+    if not player or not result then
+        return
+    end
+    if not Core.getOption("Diagnosis", true) then
+        return
+    end
+
+    local message = getText(result.wasInfected and "IGUI_PhunCure_Diagnosis_HadVirus" or
+                                "IGUI_PhunCure_Diagnosis_NoVirus")
+
+    local lingering = Core.getLingeringSickness(player)
+    if lingering then
+        message = message .. " " .. getText(lingering)
+    end
+
+    return message
+end
+
 function Core.applyFreshAndRottenDays()
     local item = ScriptManager.instance:getItem("PhunCure.Cure")
     local daysRotten = Core.getOption("DaysRotten", 5)

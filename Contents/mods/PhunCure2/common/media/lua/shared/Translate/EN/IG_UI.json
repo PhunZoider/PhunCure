@@ -9,5 +9,9 @@
     "IGUI_ItemSuccessAmpule_3": "Whew!",
     "IGUI_ItemSuccessAmpule_4": "Smells like... teen spirit?",
     "IGUI_ItemSuccessAmpule_Success": "You injected yourself and are feeling better",
-    "IGUI_ItemSuccessAmpule_NoSuccess": "You injected yourself but don't feel any better"
+    "IGUI_ItemSuccessAmpule_NoSuccess": "You injected yourself but don't feel any better",
+    "IGUI_PhunCure_Diagnosis_HadVirus": "The fever is going... that really was the virus.",
+    "IGUI_PhunCure_Diagnosis_NoVirus": "No change. I never had the virus to begin with.",
+    "IGUI_PhunCure_Diagnosis_Corpses": "I still feel sick though. It must be all these bodies.",
+    "IGUI_PhunCure_Diagnosis_Food": "I still feel sick though. Must have been something I ate."
 }

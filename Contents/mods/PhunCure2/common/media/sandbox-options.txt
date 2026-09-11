@@ -79,6 +79,15 @@ option PhunCure.CureScratch
 }
 
 
+
+option PhunCure.Diagnosis
+{
+    type = boolean,
+    default = true,
+    page = PhunCure,
+    translation = PhunCure_Diagnosis,
+}
+
 option PhunCure.Debug
 {
     type = boolean,

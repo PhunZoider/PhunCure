@@ -28,6 +28,7 @@ Commands[Core.commands.cure] = function(player, arguments)
         if result.wasInfected or result.wasInfectedWound or result.wasScratched or result.wasBitten then
             player:Say(getText("IGUI_ItemSuccessAmpule_" .. ZombRand(1, 4)));
         end
+        Core.tools.sayLater(player, Core.getDiagnosis(player, result))
     else
         Core.debugLn("Sending cure result back to client.", result.wasInfected, result.wasInfectedWound,
             result.wasScratched, result.wasBitten)

@@ -97,4 +97,41 @@ function tools.addLineInChat(message, color, options)
 
 end
 
+-- Queued follow up halos. Saying the diagnosis immediately would land on top of the
+-- "that feels more like it" line, so it is held back a couple of seconds.
+local pendingSays = {}
+
+local function processPendingSays()
+    local now = getTimestampMs()
+    local remaining = {}
+    for i = 1, #pendingSays do
+        local entry = pendingSays[i]
+        if now >= entry.due then
+            if entry.player and not entry.player:isDead() then
+                entry.player:Say(entry.message)
+            end
+        else
+            remaining[#remaining + 1] = entry
+        end
+    end
+    pendingSays = remaining
+    if #pendingSays == 0 then
+        Events.OnTick.Remove(processPendingSays)
+    end
+end
+
+function tools.sayLater(player, message, delayMs)
+    if not player or not message then
+        return
+    end
+    pendingSays[#pendingSays + 1] = {
+        player = player,
+        message = message,
+        due = getTimestampMs() + (delayMs or 2500)
+    }
+    if #pendingSays == 1 then
+        Events.OnTick.Add(processPendingSays)
+    end
+end
+
 return tools
