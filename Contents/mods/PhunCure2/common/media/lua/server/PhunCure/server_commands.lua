@@ -18,10 +18,9 @@ Commands[Core.commands.cure] = function(player, arguments)
         end
     end
 
-    Core.debugLn(
-        "Cure command processed on server with wasInfected=" .. tostring(result.wasInfected) .. ", wasInfectedWound=" ..
-            tostring(result.wasInfectedWound) .. ", wasScratched=" .. tostring(result.wasScratched) .. ", wasBitten=" ..
-            tostring(result.wasBitten))
+    Core.debugLn("Cure command processed on server with wasInfected=" .. tostring(result.wasInfected) ..
+                     ", wasInfectedWound=" .. tostring(result.wasInfectedWound) .. ", wasScratched=" ..
+                     tostring(result.wasScratched) .. ", wasBitten=" .. tostring(result.wasBitten))
 
     if Core.isLocal then
         Core.debugLn("Cure command processed locally.")

@@ -32,13 +32,16 @@ for %%M in (%MODS%) do (
 )
 
 rem --- Test-id variants ------------------------------------------------------
-rem Copy the live mod, then overlay Tests\root\<Mod> which swaps in a mod.info
-rem carrying the *test ids. Lets both versions sit side by side in one install.
+rem Copy the live mod, then overlay Tests\root\<Mod> (or Tests\root itself when
+rem there is no per-mod folder) which swaps in a mod.info carrying the *test
+rem ids. Lets both versions sit side by side in one install.
 for %%M in (%MODS%) do (
     rmdir /S /Q "%MODDIR%\%%MTest" 2>nul
     xcopy "%MODDIR%\%%M" "%MODDIR%\%%MTest" /Y /I /E /F /Q >nul
-    if exist "%SRC%Tests\root\%%M" (
+    if exist "%SRC%Tests\root\%%M\" (
         xcopy "%SRC%Tests\root\%%M" "%MODDIR%\%%MTest" /Y /I /E /F /Q >nul
+    ) else (
+        xcopy "%SRC%Tests\root" "%MODDIR%\%%MTest" /Y /I /E /F /Q >nul
     )
 )
 
