@@ -46,11 +46,22 @@ Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     end
 end)
 
+-- The Mutants (PZTheMutants) identifies its zeds by outfit, so never re-dress one
+local function isMutant(zed)
+    return PZTheMutants and PZTheMutants.API and PZTheMutants.API.isMutant and PZTheMutants.API.isMutant(zed) or
+               false
+end
+
 local function makeCarrier(zed)
+    if isMutant(zed) then
+        Core.debugLn("Skipping carrier for mutant zed")
+        return false
+    end
     zed:dressInPersistentOutfit("HazardSuit")
     zed:resetModelNextFrame()
     zed:resetModel()
     Core.debugLn("Carrier zed created")
+    return true
 end
 
 local tests = {}
@@ -67,6 +78,10 @@ Events.OnZombieCreate.Add(function(zed)
 
     if tests[data.id] then
         return -- Already tested this zed, skip
+    end
+
+    if isMutant(zed) then
+        return -- Leave The Mutants' zeds alone
     end
 
     tests[data.id] = true
@@ -100,8 +115,9 @@ Events.OnZombieCreate.Add(function(zed)
     if roll <= rate then
         Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
                          " and is a carrier")
-        counts = counts + 1
-        makeCarrier(zed)
+        if makeCarrier(zed) then
+            counts = counts + 1
+        end
     else
         Core.debugLn("Zed " .. tostring(data.id) .. " rolled " .. tostring(roll) .. "/" .. tostring(rate) ..
                          " and is not a carrier")
